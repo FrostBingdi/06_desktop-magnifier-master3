@@ -16,37 +16,37 @@ Viewfinder::Viewfinder(QWidget *parent)
     this->setAttribute(Qt::WA_QuitOnClose, false);
     this->setAttribute(Qt::WA_TransparentForMouseEvents);
     this->setAttribute(Qt::WA_DeleteOnClose);
-    // »ñÈ¡Ö÷ÆÁÄ»
+    // è·å–ä¸»å±å¹•
     QScreen *screen = QGuiApplication::primaryScreen();
 
-    // »ñÈ¡ÆÁÄ»µÄ´óĞ¡ºÍÎ»ÖÃĞÅÏ¢
+    // è·å–å±å¹•çš„å¤§å°å’Œä½ç½®ä¿¡æ¯
     QRect screenRect = screen->geometry();
 
-    // ¼ÆËã´°¿ÚÔÚÆÁÄ»ÖĞ¼äµÄÎ»ÖÃ
+    // è®¡ç®—çª—å£åœ¨å±å¹•ä¸­é—´çš„ä½ç½®
     int windowX = screenRect.x() + (screenRect.width() - width()) / 2;
     int windowY = screenRect.y() + (screenRect.height() - height()) / 2;
 
-    // ÉèÖÃ´°¿ÚµÄÎ»ÖÃ
+    // è®¾ç½®çª—å£çš„ä½ç½®
     move(windowX, windowY);
 
     //    this->lower();
 
-    //    // ¶àÏß³Ì¿ªÆô£¬²»¶ÏË¢ĞÂ¼àÊÓÆ÷
+    //    // å¤šçº¿ç¨‹å¼€å¯ï¼Œä¸æ–­åˆ·æ–°ç›‘è§†å™¨
     //    QFuture<void> future = QtConcurrent::run([&] {
     //        forever {
     //            if (this->mExit) {
     //                emit exitOk();
     //                break;
     //            }
-    //            // »ñÈ¡Ñ¡ÔñÆ÷×óÉÏ½ÇµÄÈ«¾ÖÎ»ÖÃ
+    //            // è·å–é€‰æ‹©å™¨å·¦ä¸Šè§’çš„å…¨å±€ä½ç½®
     //            QPoint selectorTopLeft = this->frameGeometry().topLeft();
     //            int selectorX = selectorTopLeft.x();
     //            int selectorY = selectorTopLeft.y();
-    //            // ¸ù¾İÑ¡ÔñÆ÷µÄÎ»ÖÃ½ØÆÁ
+    //            // æ ¹æ®é€‰æ‹©å™¨çš„ä½ç½®æˆªå±
     ////            QPixmap screenShot = QGuiApplication::primaryScreen()->grabWindow(
     ////                        0, selectorX, selectorY, this->width(), this->height());
 
-    //            // »ñÈ¡Òª½ØÈ¡µÄ´°¿Ú¾ä±ú
+    //            // è·å–è¦æˆªå–çš„çª—å£å¥æŸ„
     //            HWND windowHandle = FindWindowA(nullptr, "Counter-Strike: Global Offensive - Direct3D 9");
     //            if (windowHandle == nullptr)
     //            {
@@ -59,25 +59,25 @@ Viewfinder::Viewfinder(QWidget *parent)
 
     //             QPixmap screenShot1 = cropPixmap(screenShot,rect);
 
-    //            // ·¢³öĞÅºÅÍ¨Öª¼àÊÓÆ÷°ÑÍ¼Æ¬ÉèÖÃµ½¼àÊÓÆ÷ÉÏ
+    //            // å‘å‡ºä¿¡å·é€šçŸ¥ç›‘è§†å™¨æŠŠå›¾ç‰‡è®¾ç½®åˆ°ç›‘è§†å™¨ä¸Š
     //            emit this->screenShotOk(screenShot1);
     //        }
     //    });
 
-    // ¶àÏß³Ì¿ªÆô£¬²»¶ÏË¢ĞÂ¼àÊÓÆ÷
+    // å¤šçº¿ç¨‹å¼€å¯ï¼Œä¸æ–­åˆ·æ–°ç›‘è§†å™¨
     //    QThreadPool::globalInstance()->setMaxThreadCount(200);
     //    QThreadPool::globalInstance()->start(this);
 
-    // ¶àÏß³Ì¿ªÆô£¬²»¶ÏË¢ĞÂ¼àÊÓÆ÷
+    // å¤šçº¿ç¨‹å¼€å¯ï¼Œä¸æ–­åˆ·æ–°ç›‘è§†å™¨
 
-    // »ñÈ¡Ñ¡ÔñÆ÷×óÉÏ½ÇµÄÈ«¾ÖÎ»ÖÃ
+    // è·å–é€‰æ‹©å™¨å·¦ä¸Šè§’çš„å…¨å±€ä½ç½®
     QPoint selectorTopLeft = this->frameGeometry().topLeft();
     selectorX = selectorTopLeft.x();
     selectorY = selectorTopLeft.y();
 
-    timerID = startTimer(1000); // Æô¶¯µÚÒ»¸ö¶¨Ê±Æ÷²¢¼ÇÂ¼ÆäID
+    timerID = startTimer(1000); // å¯åŠ¨ç¬¬ä¸€ä¸ªå®šæ—¶å™¨å¹¶è®°å½•å…¶ID
 
-    for(int i = 1; i <= 15; i++){
+    for(int i = 1; i <= 10; i++){
         QFuture<void> future = QtConcurrent::run([&] {
             forever {
                 if (this->mExit) {
@@ -87,11 +87,11 @@ Viewfinder::Viewfinder(QWidget *parent)
 
 
 
-                // ¸ù¾İÑ¡ÔñÆ÷µÄÎ»ÖÃ½ØÆÁ
+                // æ ¹æ®é€‰æ‹©å™¨çš„ä½ç½®æˆªå±
                 // QPixmap screenShot = QGuiApplication::primaryScreen()->grabWindow(
                 //            0, selectorX, selectorY, this->width(), this->height());
 
-                // »ñÈ¡Òª½ØÈ¡µÄ´°¿Ú¾ä±ú
+                // è·å–è¦æˆªå–çš„çª—å£å¥æŸ„
                 //        HWND windowHandle = FindWindowA(nullptr, "Counter-Strike: Global Offensive - Direct3D 9");
 
                 mutex1.lock();
@@ -102,7 +102,7 @@ Viewfinder::Viewfinder(QWidget *parent)
                 }
                 mutex1.unlock();
                 mutex2.lock();
-                // ·¢³öĞÅºÅÍ¨Öª¼àÊÓÆ÷°ÑÍ¼Æ¬ÉèÖÃµ½¼àÊÓÆ÷ÉÏ
+                // å‘å‡ºä¿¡å·é€šçŸ¥ç›‘è§†å™¨æŠŠå›¾ç‰‡è®¾ç½®åˆ°ç›‘è§†å™¨ä¸Š
                 if(!screenShot.isNull()){
                     emit this->screenShotOk(screenShot);
                 }
@@ -124,15 +124,15 @@ Viewfinder::Viewfinder(QWidget *parent)
 //            emit exitOk();
 //            break;
 //        }
-//        // »ñÈ¡Ñ¡ÔñÆ÷×óÉÏ½ÇµÄÈ«¾ÖÎ»ÖÃ
+//        // è·å–é€‰æ‹©å™¨å·¦ä¸Šè§’çš„å…¨å±€ä½ç½®
 //        QPoint selectorTopLeft = this->frameGeometry().topLeft();
 //        int selectorX = selectorTopLeft.x();
 //        int selectorY = selectorTopLeft.y();
-//        // ¸ù¾İÑ¡ÔñÆ÷µÄÎ»ÖÃ½ØÆÁ
+//        // æ ¹æ®é€‰æ‹©å™¨çš„ä½ç½®æˆªå±
 //        // QPixmap screenShot = QGuiApplication::primaryScreen()->grabWindow(
 //        //            0, selectorX, selectorY, this->width(), this->height());
 
-//        // »ñÈ¡Òª½ØÈ¡µÄ´°¿Ú¾ä±ú
+//        // è·å–è¦æˆªå–çš„çª—å£å¥æŸ„
 //        //        HWND windowHandle = FindWindowA(nullptr, "Counter-Strike: Global Offensive - Direct3D 9");
 //        //        if (windowHandle == nullptr)
 //        //        {
@@ -145,7 +145,7 @@ Viewfinder::Viewfinder(QWidget *parent)
 
 //        QPixmap screenShot1 = cropPixmap(screenShot, rect);
 
-//        // ·¢³öĞÅºÅÍ¨Öª¼àÊÓÆ÷°ÑÍ¼Æ¬ÉèÖÃµ½¼àÊÓÆ÷ÉÏ
+//        // å‘å‡ºä¿¡å·é€šçŸ¥ç›‘è§†å™¨æŠŠå›¾ç‰‡è®¾ç½®åˆ°ç›‘è§†å™¨ä¸Š
 //        emit this->screenShotOk(screenShot1);
 //    }
 //}
@@ -162,20 +162,20 @@ void Viewfinder::changeMagnification(bool zoomIn) {
 
     emit windowSizeChanged(this->width(),this->height());
 
-    // »ñÈ¡Ö÷ÆÁÄ»
+    // è·å–ä¸»å±å¹•
     QScreen *screen = QGuiApplication::primaryScreen();
 
-    // »ñÈ¡ÆÁÄ»µÄ´óĞ¡ºÍÎ»ÖÃĞÅÏ¢
+    // è·å–å±å¹•çš„å¤§å°å’Œä½ç½®ä¿¡æ¯
     QRect screenRect = screen->geometry();
 
-    // ¼ÆËã´°¿ÚÔÚÆÁÄ»ÖĞ¼äµÄÎ»ÖÃ
+    // è®¡ç®—çª—å£åœ¨å±å¹•ä¸­é—´çš„ä½ç½®
     int windowX = screenRect.x() + (screenRect.width() - width()) / 2;
     int windowY = screenRect.y() + (screenRect.height() - height()) / 2;
 
-    // ÉèÖÃ´°¿ÚµÄÎ»ÖÃ
+    // è®¾ç½®çª—å£çš„ä½ç½®
     move(windowX, windowY);
 
-    // »ñÈ¡Ñ¡ÔñÆ÷×óÉÏ½ÇµÄÈ«¾ÖÎ»ÖÃ
+    // è·å–é€‰æ‹©å™¨å·¦ä¸Šè§’çš„å…¨å±€ä½ç½®
     QPoint selectorTopLeft = this->frameGeometry().topLeft();
     selectorX = selectorTopLeft.x();
     selectorY = selectorTopLeft.y();
@@ -183,14 +183,14 @@ void Viewfinder::changeMagnification(bool zoomIn) {
 
 void Viewfinder::exitProgram() { this->mExit = true; }
 
-//´¦ÀíÈ¡¾°¿òÒÆ¶¯ÎÊÌâ
+//å¤„ç†å–æ™¯æ¡†ç§»åŠ¨é—®é¢˜
 void Viewfinder::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        // ÉèÖÃÊó±êÔÚ´°¿ÚÉÏÎªÕæ
+        // è®¾ç½®é¼ æ ‡åœ¨çª—å£ä¸Šä¸ºçœŸ
         this->mOnSelector = true;
-        // ¼ÇÂ¼´°¿ÚµÄ³õÊ¼Î»ÖÃ
+        // è®°å½•çª—å£çš„åˆå§‹ä½ç½®
         this->mSelectorStartPos = this->frameGeometry().topLeft();
-        // ¼ÇÂ¼Êó±êµÄÆğÊ¼µã
+        // è®°å½•é¼ æ ‡çš„èµ·å§‹ç‚¹
         this->mMouseStartPoint = event->globalPos();
     }
 }
@@ -202,7 +202,7 @@ void Viewfinder::paintEvent(QPaintEvent *)
     painter.setRenderHint(QPainter::Antialiasing);
     pic.load(":/Image/selector.png");
     pic = pic.scaled(this->width(),this->height());
-    painter.drawPixmap(0, 0, pic);//»æÖÆÍ¼Ïñ
+    painter.drawPixmap(0, 0, pic);//ç»˜åˆ¶å›¾åƒ
 }
 
 //void Viewfinder::initMonitor(Monitor * monitor2)
@@ -300,7 +300,7 @@ WId Viewfinder::getWindowHandle(QWidget *widget)
 #elif defined(Q_OS_MACOS)
     return widget->windowHandle()->winId();
 #elif defined(Q_OS_LINUX)
-    // »ñÈ¡ X11 ´°¿Ú¾ä±ú
+    // è·å– X11 çª—å£å¥æŸ„
     return widget->winId();
 #endif
 }
@@ -311,11 +311,11 @@ QPixmap Viewfinder::cropPixmap(const QPixmap &sourcePixmap, const QRect &rect)
         return QPixmap();
     }
 
-    // ´´½¨Ä¿±ê¾ØĞÎ´óĞ¡µÄ¿Õ°× QPixmap
+    // åˆ›å»ºç›®æ ‡çŸ©å½¢å¤§å°çš„ç©ºç™½ QPixmap
     QPixmap croppedPixmap(rect.size());
     croppedPixmap.fill(Qt::transparent);
 
-    // ÔÚÄ¿±ê QPixmap ÉÏ»æÖÆ½ØÈ¡µÄÇøÓò
+    // åœ¨ç›®æ ‡ QPixmap ä¸Šç»˜åˆ¶æˆªå–çš„åŒºåŸŸ
     QPainter painter(&croppedPixmap);
     painter.drawPixmap(0, 0, sourcePixmap, rect.x(), rect.y(), rect.width(), rect.height());
     painter.end();
