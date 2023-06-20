@@ -12,7 +12,7 @@ LRESULT CALLBACK MouseHookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
     if (nCode >= 0 && wParam == WM_RBUTTONDOWN)
     {
-        // Êó±êÓÒ¼ü°´ÏÂÊÂ¼ş
+        // é¼ æ ‡å³é”®æŒ‰ä¸‹äº‹ä»¶
         qDebug() << 4;
         if(isHide == false)
         {
@@ -45,18 +45,16 @@ Monitor::Monitor(QWidget *parent)
 
     monitor = this;
 
-    this->move(0, 0);
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setAttribute(Qt::WA_NoSystemBackground, true);
-    // ÉèÖÃ´°¿ÚÊôĞÔÊ¹Æä¶ÔÊó±êÊÂ¼şÍ¸Ã÷
+    // è®¾ç½®çª—å£å±æ€§ä½¿å…¶å¯¹é¼ æ ‡äº‹ä»¶é€æ˜
     this->setAttribute(Qt::WA_TransparentForMouseEvents);
     this->setAttribute(Qt::WA_DeleteOnClose);
-    installEventFilter(this);
+    //installEventFilter(this);
 
     //    HWND hwnd = reinterpret_cast<HWND>(this->winId());
     //    LONG extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-    //    SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);//±íÊ¾´°¿ÚÊÇÍ¸Ã÷µÄ£¬¼´ÔÊĞíÊó±êÊÂ¼şÍ¸¹ı´°¿Ú´«µİ¸øÏÂ·½µÄ´°¿Ú¡£
+    //    SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);//è¡¨ç¤ºçª—å£æ˜¯é€æ˜çš„ï¼Œå³å…è®¸é¼ æ ‡äº‹ä»¶é€è¿‡çª—å£ä¼ é€’ç»™ä¸‹æ–¹çš„çª—å£ã€‚
     HWND hwnd = nullptr;
     LONG extendedStyle = 0;
 
@@ -68,35 +66,36 @@ Monitor::Monitor(QWidget *parent)
         if (SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT) != 0) {
             success = true;
         } else {
-            // µÈ´ıÒ»¶ÎÊ±¼äÔÙ³¢ÊÔÖØĞÂÖ´ĞĞ
+            // ç­‰å¾…ä¸€æ®µæ—¶é—´å†å°è¯•é‡æ–°æ‰§è¡Œ
             QThread::msleep(100);
         }
     }
 
-    // »ñÈ¡Ö÷ÆÁÄ»
-    QScreen *screen = QGuiApplication::primaryScreen();
-
-    // »ñÈ¡ÆÁÄ»µÄ´óĞ¡ºÍÎ»ÖÃĞÅÏ¢
-    QRect screenRect = screen->geometry();
-
-    // ¼ÆËã´°¿ÚÔÚÆÁÄ»ÖĞ¼äµÄÎ»ÖÃ
-    int windowX = screenRect.x() + (screenRect.width() - width()) / 2;
-    int windowY = screenRect.y() + (screenRect.height() - height()) / 2;
-
-    // ÉèÖÃ´°¿ÚµÄÎ»ÖÃ
-    move(windowX, windowY);
-
     do{
-        // °²×°Êó±ê¹³×Ó
+        // å®‰è£…é¼ æ ‡é’©å­
         mouseHook = SetWindowsHookEx(WH_MOUSE_LL, MouseHookProc, GetModuleHandle(NULL), 0);
     }while(mouseHook == NULL);
 
+    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
 
+
+    // è·å–ä¸»å±å¹•
+    QScreen *screen = QGuiApplication::primaryScreen();
+
+    // è·å–å±å¹•çš„å¤§å°å’Œä½ç½®ä¿¡æ¯
+    QRect screenRect = screen->geometry();
+
+    // è®¡ç®—çª—å£åœ¨å±å¹•ä¸­é—´çš„ä½ç½®
+    int windowX = screenRect.x() + (screenRect.width() - width()) / 2;
+    int windowY = screenRect.y() + (screenRect.height() - height()) / 2;
+
+    // è®¾ç½®çª—å£çš„ä½ç½®
+    this->move(windowX, windowY);
 }
 
 Monitor::~Monitor()
 {
-    // Ğ¶ÔØÊó±ê¹³×Ó
+    // å¸è½½é¼ æ ‡é’©å­
     UnhookWindowsHookEx(mouseHook);
     delete ui;
 }
@@ -111,17 +110,17 @@ void Monitor::setScreenShot(const QPixmap screenShot)
 void Monitor::changeWindowSize(int width, int height)
 {
     this->resize(width*2,height*2);
-    // »ñÈ¡Ö÷ÆÁÄ»
+    // è·å–ä¸»å±å¹•
     QScreen *screen = QGuiApplication::primaryScreen();
 
-    // »ñÈ¡ÆÁÄ»µÄ´óĞ¡ºÍÎ»ÖÃĞÅÏ¢
+    // è·å–å±å¹•çš„å¤§å°å’Œä½ç½®ä¿¡æ¯
     QRect screenRect = screen->geometry();
 
-    // ¼ÆËã´°¿ÚÔÚÆÁÄ»ÖĞ¼äµÄÎ»ÖÃ
+    // è®¡ç®—çª—å£åœ¨å±å¹•ä¸­é—´çš„ä½ç½®
     int windowX = screenRect.x() + (screenRect.width() - this->width()) / 2;
     int windowY = screenRect.y() + (screenRect.height() - this->height()) / 2;
 
-    // ÉèÖÃ´°¿ÚµÄÎ»ÖÃ
+    // è®¾ç½®çª—å£çš„ä½ç½®
     move(windowX, windowY);
 }
 
@@ -140,7 +139,7 @@ void Monitor::paintEvent(QPaintEvent *event)
     event->accept();
 }
 
-// ´¦Àí¼àÊÓÆ÷ÒÆ¶¯ÎÊÌâ
+// å¤„ç†ç›‘è§†å™¨ç§»åŠ¨é—®é¢˜
 void Monitor::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
@@ -171,7 +170,7 @@ bool Monitor::eventFilter(QObject * obj, QEvent * event)
 
     if (event->type() == QEvent::MouseButtonPress) {
         QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
-        // ´¦ÀíÊó±êÊÂ¼ş
+        // å¤„ç†é¼ æ ‡äº‹ä»¶
         if (mouseEvent->button() == Qt::RightButton){
             if(this->isHidden()){
                 this->show();
@@ -182,7 +181,7 @@ bool Monitor::eventFilter(QObject * obj, QEvent * event)
         }
     }
 
-    // ·µ»Ø false£¬½«ÊÂ¼ş¼ÌĞø´«µİ¸øÔ­Ê¼µÄÊÂ¼ş½ÓÊÕÕß
+    // è¿”å› falseï¼Œå°†äº‹ä»¶ç»§ç»­ä¼ é€’ç»™åŸå§‹çš„äº‹ä»¶æ¥æ”¶è€…
     return QObject::eventFilter(obj, event);
 }
 
