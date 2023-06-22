@@ -77,7 +77,7 @@ Viewfinder::Viewfinder(QWidget *parent)
 
     timerID = startTimer(1000); // 启动第一个定时器并记录其ID
 
-    for(int i = 1; i <= 10; i++){
+    for(int i = 1; i <= 2; i++){
         QFuture<void> future = QtConcurrent::run([&] {
             forever {
                 if (this->mExit) {
